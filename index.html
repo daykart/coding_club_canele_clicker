@@ -24,7 +24,7 @@
                     aménagés. C’est là que vous intervenez.
                     Vous devez aider Paul à transformer cet endroit désert en la meilleure pâtisserie de
                     Bordeaux </p>
-                
+
             </div>
         </div>
         <div class="container">
@@ -33,15 +33,76 @@
         </div>
 
         <div class="container">
-           
+
             <p></p>
-            
-            <button type="button" class="btn btn-primary btn-sm">Cusiner</button>
-            <button type="button" class="btn btn-secondary btn-sm">Acheter un four (25 canelés)</button>
+            <h3>Vous avez <span id="thisone" style="color:crimson;">0</span> canelés</h3>
+            <button onclick="addone()" type="button" class="btn btn-primary btn-sm">Cusiner</button>
+            <button type="button" id="disabled-button" class="btn btn-danger btn-sm disabled">Acheter un four (25
+                canelés)</button>
         </div>
 
 
     </main>
+
+
+
+    <script type="text/javascript">
+        function doit() {
+            document.getElementById("thisone").innerHTML = "you";
+        }
+        function addone() {
+            var foo = document.getElementById('thisone').innerHTML;
+            foo++;
+            document.getElementById('thisone').innerHTML = foo;
+        }
+        function active() {
+            this.enabledButton = document.getElementById("enabled-button");
+            this.validations = [
+                {
+                    // When should the enable button be active?
+                    element: this.enabledButton,
+                    condition: () => {
+                        var checkedCheckboxes = areChecked();
+                        var valid = (
+                            // Do we have even one checkbox selected?
+                            checkedCheckboxes.length > 0
+                        );
+                        return valid;
+                    },
+                    trueAction: (elem) => {
+                        elem.removeAttribute("disabled");
+                        elem.classList.remove("disabled");
+                    },
+                    falseAction: (elem) => {
+                        elem.setAttribute("disabled", "disabled");
+                        elem.classList.add("disabled");
+                    }
+                },
+                // Second validation
+                {
+                    // When should the disable button be active?
+                    element: this.disabledButton,
+                    condition: () => {
+                        var checkedCheckboxes = areChecked();
+                        var valid = (
+                            // No checkboxes are available, time to disable.
+                            checkedCheckboxes.length > 0
+                        );
+                        return valid;
+                    },
+                    trueAction: (elem) => {
+                        elem.removeAttribute("disabled");
+                        elem.classList.remove("disabled");
+                    },
+                    falseAction: (elem) => {
+                        elem.setAttribute("disabled", "disabled");
+                        elem.classList.add("disabled");
+                    }
+                }
+            ];
+
+        }
+    </script>
 
 
     <!-- Optional JavaScript -->
